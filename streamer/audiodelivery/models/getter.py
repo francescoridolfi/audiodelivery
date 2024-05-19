@@ -1,4 +1,3 @@
-from typing import Literal
 from django.conf import settings
 
 import sys
@@ -27,15 +26,17 @@ def is_making_migrations():
     
     return True
 
-def get_model(typo: Literal["chunk", "audio"]):
+def get_model(typo):
 
     var = VARIABLES[typo]
     default = DEFAULTS[typo]
 
-    app_label, model_name = getattr(settings, var, default).split(".")
+    model_path = getattr(settings, var, default)
 
     if is_making_migrations():
-        return model_name
+        return model_path
+
+    app_label, model_name = model_path.split(".")
 
     return apps.get_model(
         app_label=app_label,

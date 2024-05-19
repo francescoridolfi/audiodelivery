@@ -26,6 +26,7 @@ class BaseAudio(BaseModel):
     
     def to_json(self):
         return {
+            "id": self.id,
             "name": self.name,
             "chunks": [chunk.to_json() for chunk in self.chunks.all()]
         }

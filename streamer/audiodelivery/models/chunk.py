@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from audiodelivery.models.base import BaseModel
 from audiodelivery.models.getter import get_audio_model
 
+from audiodelivery.utils.time import convert_to_millis
+
 class BaseAudioChunk(BaseModel):
     class Meta:
         abstract = True
@@ -46,7 +48,8 @@ class BaseAudioChunk(BaseModel):
     def to_json(self):
         return {
             "order": self.order,
-            "start_time": self.start_time
+            "start_time": convert_to_millis(self.start_time),
+            "end_time": convert_to_millis(self.end_time)
         }
 
 class AudioChunk(BaseAudioChunk):
