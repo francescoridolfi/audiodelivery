@@ -1,5 +1,5 @@
 # Audio Delivery
-A Django Application for manage the backend features for a Streaming Project.
+A Django Application to manage the backend features for a Streaming Project.
 
 ## What it does?
 The application aims to manage the uploading of audio files by users, split them into multiple chunks and generate the APIs to obtain information and chunks from the latter.
