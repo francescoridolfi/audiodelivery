@@ -1,11 +1,17 @@
 from django.db import models
 
+from django.conf import settings
+
 from django.utils.translation import gettext_lazy as _
 
 from audiodelivery.models.base import BaseModel
 from audiodelivery.models.getter import get_audio_model
 
 from audiodelivery.utils.time import convert_to_millis
+
+
+CHUNK_PATH = getattr(settings, "AUDIODELIVERY_CHUNK_DIR", settings.BASE_DIR / "chunks")
+
 
 class BaseAudioChunk(BaseModel):
     class Meta:
@@ -28,8 +34,11 @@ class BaseAudioChunk(BaseModel):
     )
 
     file_path = models.FilePathField(
-        _("File path"),
+        verbose_name=_("File path"),
+        path=CHUNK_PATH,
         max_length=255,
+        null=True,
+        blank=True,
         help_text=_("Path where the file is stored")
     )
 

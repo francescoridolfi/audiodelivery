@@ -1,5 +1,8 @@
 from django.conf import settings
 
+from django.utils.translation import gettext_lazy as _
+
+import importlib
 
 DEFAULTS = {
     "chunk": "audiodelivery.api.serializers.AudioChunkSerializer",
@@ -13,6 +16,13 @@ VARIABLES = {
     "audio": base_var % {"class": "audio"} 
 }
 
+def import_class_from_string(path_string: str):
+    module_name, class_name = path_string.rsplit(".", 1)
+    
+    module = importlib.import_module(module_name)
+    
+    return getattr(module, class_name, None)
+
 def get_serializer(typo):
 
     var = VARIABLES[typo]
@@ -20,12 +30,12 @@ def get_serializer(typo):
 
     serializer_path = getattr(settings, var, default)
 
-    class_name = serializer_path.split(".")[-1]
-    file_name = "".join(serializer_path.split(".")[:-1])
+    serializer = import_class_from_string(serializer_path)
 
-    pkg = __import__(file_name)
-    
-    return getattr(pkg, class_name, None)
+    if serializer is None:
+        raise ModuleNotFoundError(_("Module %(path)s not found") % {"path": serializer_path})
+
+    return serializer
 
 
 def get_audio_serializer():
