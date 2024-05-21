@@ -84,7 +84,7 @@ MIDDLEWARE = [
 ]
 ```
 
-Next step is to append in the settings file, the default AudioDelivery Settings showed before this section, and follow the previous tutorial if you want to implement custom models/serializers, then run:
+Next step is to append in the settings file, the default AudioDelivery Settings showed [before this section](#settings-examples), and follow the previous tutorial if you want to implement custom models/serializers, then run:
 ```bash
 python3 manage.py makemigrations
 python3 manage.py migrate
