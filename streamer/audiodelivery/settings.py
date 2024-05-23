@@ -13,6 +13,8 @@ PERMISSIONS = getattr(settings, "AUDIODELIVERY_PERMISSIONS", {
 
 CHUNK_PATH = getattr(settings, "AUDIODELIVERY_CHUNK_DIR", settings.BASE_DIR / "chunks")
 
+MAX_CHUNK_DURATION = getattr(settings, "AUDIODELIVERY_MAX_CHUNK_DURATION", 9999)
+
 # DB SETTINGS
 
 _model_defaults = {
@@ -51,6 +53,10 @@ SERIALIZERS = {
     "audio": getattr(settings, _serializer_variables["audio"], _serializer_defaults["audio"])
 }
 
-# UPLOAD SETTINGS
+# VALIDATORS SETTINGS
 
 ALLOWED_FORMATS = getattr(settings, "AUDIODELIVERY_ALLOWED_FORMATS", ("mp3", ))
+
+FILE_VALIDATORS = getattr(settings, "AUDIODELIVERY_UPLOAD_VALIDATORS", [])
+
+

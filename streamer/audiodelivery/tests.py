@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from audiodelivery.models.chunk import AudioChunk
 
-from audiodelivery.utils.time import convert_to_millis
+from audiodelivery.utils.time import convert_to_millis, convert_from_millis
 
 import logging
 
@@ -34,3 +34,7 @@ class AudioChunkTestCase(TestCase):
         chunk = AudioChunk.objects.get(order=1)
 
         self.assertEqual(convert_to_millis(chunk.end_time), int(((8*60 + 12)*60 + 40)*1000 + 999), "Chunk n1 did not return the expected value")
+
+        self.assertEqual(convert_from_millis(29560999), "T08:12:40.999", "Converting from millis failed due to invalid output")
+
+        self.assertEqual(convert_from_millis(0), "T00:00:00.0", "Converting from millis failed due to invalid output")
