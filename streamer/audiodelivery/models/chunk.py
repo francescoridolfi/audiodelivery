@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.conf import settings
-
 from django.utils.translation import gettext_lazy as _
 
 from audiodelivery.models.base import BaseModel
@@ -9,8 +7,8 @@ from audiodelivery.models.getter import get_audio_model
 
 from audiodelivery.utils.time import convert_to_millis
 
+from audiodelivery.settings import CHUNK_PATH
 
-CHUNK_PATH = getattr(settings, "AUDIODELIVERY_CHUNK_DIR", settings.BASE_DIR / "chunks")
 
 
 class BaseAudioChunk(BaseModel):

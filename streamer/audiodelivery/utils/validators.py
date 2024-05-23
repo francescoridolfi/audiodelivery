@@ -1,11 +1,11 @@
-from django.conf import settings
-
 from django.utils.translation import gettext_lazy as _
 
 from django.core.exceptions import ValidationError
 
-def audio_format_validator(value):
-    allowed_formats = getattr(settings, "AUDIODELIVERY_ALLOWED_FORMATS", (".mp3", ))
+from audiodelivery.settings import ALLOWED_FORMATS
 
-    if not value.name.split(".")[-1].lower() in allowed_formats:
+
+def audio_format_validator(value):
+
+    if not value.name.split(".")[-1].lower() in ALLOWED_FORMATS:
         raise ValidationError(_("Unsupported file extension."))

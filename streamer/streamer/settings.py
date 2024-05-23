@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "crum.CurrentRequestUserMiddleware",
 ]
 
 ROOT_URLCONF = 'streamer.urls'
@@ -131,7 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUDIODELIVERY_CHUNK_DIR = BASE_DIR / "chunks"
 
-AUDIODELIVERY_ALLOWED_FORMATS = (".mp3", )
+AUDIODELIVERY_ALLOWED_FORMATS = ("mp3", )
 
 AUDIODELIVERY_CHUNK_MODEL = "audiodelivery.AudioChunk"
 AUDIODELIVERY_AUDIO_MODEL = "audiodelivery.Audio"

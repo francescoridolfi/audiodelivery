@@ -4,7 +4,7 @@ from django.http.request import HttpRequest
 
 from rest_framework.permissions import BasePermission
 
-from audiodelivery.models.audio import PERMISSIONS
+from audiodelivery.settings import PERMISSIONS
 
 
 class BaseAudioDeliveryPermission(BasePermission):

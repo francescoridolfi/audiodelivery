@@ -1,16 +1,11 @@
 from django.db import models
 
-from django.conf import settings
-
 from django.utils.translation import gettext_lazy as _
 
 from audiodelivery.models.base import BaseModel
 from audiodelivery.models.getter import get_chunk_model
 
-PERMISSIONS = getattr(settings, "AUDIODELIVERY_PERMISSIONS", {
-    "retrieve": ("can_retrieve", _("Can User retrieve Audio infos")),
-    "upload": ("can_upload", _("Can User upload new Audio"))
-})
+from audiodelivery.settings import PERMISSIONS
 
 
 class BaseAudio(BaseModel):

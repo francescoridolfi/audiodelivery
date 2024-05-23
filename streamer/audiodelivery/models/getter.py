@@ -1,26 +1,10 @@
-from django.conf import settings
-
 from django.apps import apps
 
+from audiodelivery.settings import MODELS
 
-DEFAULTS = {
-    "chunk": "audiodelivery.AudioChunk",
-    "audio": "audiodelivery.Audio"
-}
-
-base_var = "AUDIODELIVERY_%(class)s_MODEL"
-
-VARIABLES = {
-    "chunk": base_var % {"class": "chunk"},
-    "audio": base_var % {"class": "audio"} 
-}
 
 def get_model(typo):
-
-    var = VARIABLES[typo]
-    default = DEFAULTS[typo]
-
-    model_path = getattr(settings, var, default)
+    model_path = MODELS[typo]
 
     app_label, model_name = model_path.split(".")
 
