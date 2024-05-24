@@ -146,3 +146,6 @@ AUDIODELIVERY_PERMISSIONS = {
 
 AUDIODELIVERY_CHUNK_SERIALIZER = "audiodelivery.api.serializers.AudioChunkSerializer"
 AUDIODELIVERY_AUDIO_SERIALIZER = "audiodelivery.api.serializers.AudioSerializer"
+
+AUDIODELIVERY_UPLOAD_BACKEND = "audiodelivery.backend.default.DefaultStorageAudioUploaderBackend"
+AUDIODELIVERY_DELIVER_BACKEND = "audiodelivery.backend.default.CommonAudioDeliverBackend"

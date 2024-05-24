@@ -11,10 +11,17 @@ from pydub import AudioSegment
 from io import BytesIO
 
 
+def get_slots(duration: int, chunk_length: int):
+
+    chunks = (duration + chunk_length - 1) // chunk_length
+    
+    return [(i*chunk_length, min((i+1)*chunk_length - 1, duration)) for i in range(chunks)]
+
+
 def splitter(
         file: File,
-        populate_model_method: function,
-        storage_method: function
+        populate_model_method,
+        storage_method
     ):
     """
     Here is the method that allows splitting an audio file into multiple chunks while managing the saving and creation of the model instance using external methods.
@@ -39,8 +46,9 @@ def splitter(
     chunk_ids = []
     chunk_order = 0
 
-    for start in range(0, duration, MAX_CHUNK_DURATION):
-        end = min(start + MAX_CHUNK_DURATION, duration)
+    for slot in get_slots(duration, MAX_CHUNK_DURATION):
+        start = slot[0]
+        end = slot[1]
 
         chunk = audio[start:end]
 

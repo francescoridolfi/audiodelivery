@@ -31,4 +31,4 @@ class AudioFormatValidator(BaseAudioValidator):
     
 
 def get_file_validators():
-    return [import_module_from_string(validator) for validator in FILE_VALIDATORS] + [AudioFormatValidator]
+    return [import_module_from_string(validator)() for validator in FILE_VALIDATORS] + [AudioFormatValidator()]

@@ -25,8 +25,8 @@ _model_defaults = {
 _model_base_var = "AUDIODELIVERY_%(class)s_MODEL"
 
 _model_variables = {
-    "chunk": _model_base_var % {"class": "chunk"},
-    "audio": _model_base_var % {"class": "audio"} 
+    "chunk": _model_base_var % {"class": "CHUNK"},
+    "audio": _model_base_var % {"class": "AUDIO"} 
 }
 
 MODELS = {
@@ -44,8 +44,8 @@ _serializer_defaults = {
 _serializer_base_var = "AUDIODELIVERY_%(class)s_SERIALIZER"
 
 _serializer_variables = {
-    "chunk": _serializer_base_var % {"class": "chunk"},
-    "audio": _serializer_base_var % {"class": "audio"} 
+    "chunk": _serializer_base_var % {"class": "CHUNK"},
+    "audio": _serializer_base_var % {"class": "AUDIO"} 
 }
 
 SERIALIZERS = {
@@ -60,3 +60,21 @@ ALLOWED_FORMATS = getattr(settings, "AUDIODELIVERY_ALLOWED_FORMATS", ("mp3", ))
 FILE_VALIDATORS = getattr(settings, "AUDIODELIVERY_UPLOAD_VALIDATORS", [])
 
 
+# BACKEND SETTINGS
+
+_backend_defaults = {
+    "upload": "audiodelivery.backend.default.DefaultStorageAudioUploaderBackend",
+    "deliver": "audiodelivery.backend.default.CommonAudioDeliverBackend"
+}
+
+_backend_base_var = "AUDIODELIVERY_%(class)s_BACKEND"
+
+_backend_variables = {
+    "upload": _backend_base_var % {"class": "UPLOAD"},
+    "deliver": _backend_base_var % {"class": "DELIVER"} 
+}
+
+BACKENDS = {
+    "upload": getattr(settings, _backend_variables["upload"], _backend_defaults["upload"]),
+    "deliver": getattr(settings, _backend_variables["deliver"], _backend_defaults["deliver"])
+}

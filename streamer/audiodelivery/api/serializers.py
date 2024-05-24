@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from audiodelivery.models.getter import get_audio_model, get_chunk_model
 
-from audiodelivery.api.getter import get_chunk_serializer
+from audiodelivery.api import get_chunk_serializer
 
 from audiodelivery.utils.time import TimeToMillisField
 
