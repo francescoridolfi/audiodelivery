@@ -18,7 +18,13 @@ By defaults the settings are:
 
 AUDIODELIVERY_CHUNK_DIR = BASE_DIR / "chunks"
 
-AUDIODELIVERY_ALLOWED_FORMATS = (".mp3", )
+AUDIODELIVERY_ALLOWED_FORMATS = ("mp3", )
+AUDIODELIVERY_MAX_DURATION = 5*60*1000
+AUDIODELIVERY_MAX_SIZE = 10*1024*1024
+
+AUDIODELIVERY_UPLOAD_VALIDATORS = []
+
+AUDIODELIVERY_MAX_CHUNK_DURATION = 9999
 
 AUDIODELIVERY_CHUNK_MODEL = "audiodelivery.AudioChunk"
 AUDIODELIVERY_AUDIO_MODEL = "audiodelivery.Audio"
@@ -30,6 +36,9 @@ AUDIODELIVERY_PERMISSIONS = {
 
 AUDIODELIVERY_CHUNK_SERIALIZER = "audiodelivery.api.serializers.AudioChunkSerializer"
 AUDIODELIVERY_AUDIO_SERIALIZER = "audiodelivery.api.serializers.AudioSerializer"
+
+AUDIODELIVERY_UPLOAD_BACKEND = "audiodelivery.backend.default.DefaultStorageAudioUploaderBackend"
+AUDIODELIVERY_DELIVER_BACKEND = "audiodelivery.backend.default.CommonAudioDeliverBackend"
 ```
 
 But you can create your custom Audio model by importing the Base Abstract Model from: **audiodelivery.models.audio.BaseAudio**
@@ -66,9 +75,11 @@ AUDIODELIVERY_AUDIO_MODEL = "your_app_label.MyAudio"
 ```
 
 ## Installing
-First of all AudioDelivery requires two extra packages:
+First of all AudioDelivery requires two extra django apps:
 - [django-rest-framework](https://www.django-rest-framework.org/#installation) -> for manage the REST APIs requests
 - [django-crum](https://pypi.org/project/django-crum/) -> a middleware for obtain the current user in the thread
+And make sure you've installed pydub library and ffmpeg:
+- [pydub](https://pypi.org/project/pydub/) -> helps mp3 chunks generation
 
 Make sure that you've installed apps and middleware in the **settings.py** file:
 ```python
@@ -82,6 +93,10 @@ MIDDLEWARE = [
     # other middlewares...
     'crum.CurrentRequestUserMiddleware',
 ]
+...
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "audiodelivery.utils.exceptions.api_exception_handler"
+}
 ```
 
 Next step is to append in the settings file, the default AudioDelivery Settings showed [before this section](#settings-examples), and follow the previous tutorial if you want to implement custom models/serializers, then run:
