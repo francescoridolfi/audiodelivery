@@ -16,6 +16,7 @@ class BaseAudioChunkSerializer(serializers.ModelSerializer):
         abstract = True
 
 
+
 class AudioChunkSerializer(BaseAudioChunkSerializer):
     class Meta:
         model = get_chunk_model()
@@ -28,6 +29,7 @@ class BaseAudioSerializer(serializers.ModelSerializer):
 
     class Meta:
         abstract = True
+
 
 class AudioSerializer(BaseAudioSerializer):
     class Meta:

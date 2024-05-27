@@ -14,6 +14,7 @@ from audiodelivery.settings import CHUNK_PATH
 class BaseAudioChunk(BaseModel):
     class Meta:
         abstract = True
+        ordering = ("order", "start_time")
 
     order = models.PositiveIntegerField(
         _("Order N."),

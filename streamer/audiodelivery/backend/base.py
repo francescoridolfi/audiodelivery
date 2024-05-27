@@ -1,6 +1,6 @@
 from django.core.files.base import File
 
-from django.core.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError
 
 from django.utils.translation import gettext_lazy as _
 
@@ -35,24 +35,24 @@ class BaseAudioUploaderBackend:
         """Override this method to set custom validators."""
         return []
 
-    def _validators(self):
+    def  _validators(self):
         """Get the list of validators, either custom or default."""
-        if self.validators():
+        if len(self.validators()) > 0:
             return self.validators()
         
         return get_file_validators()
 
     def is_valid(self):
         """Check if the file passes the validation process."""
-        errors = []
+        errors = {}
 
         for validator in self._validators():
             try:
                 validator(self.file)
             except ValidationError as ve:
-                errors.append(ve)
+                errors[ve.get_codes()[0]] = ve.detail
             except Exception as e:
-                errors.append(ValidationError(str(e)))
+                errors["generic"] = str(e)
 
         if errors:
             raise ValidationError(errors)

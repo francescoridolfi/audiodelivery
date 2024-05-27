@@ -58,7 +58,7 @@ def splitter(
 
         path = storage_method(
             output_path=CHUNK_PATH / slug_name,
-            filename=f"chunk_{chunk_order}.mp3",
+            filename=f"chunk_{chunk_order}.{file_format}",
             content=ContentFile(chunk_io.read())
         )
 

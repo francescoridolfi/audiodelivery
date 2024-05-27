@@ -127,13 +127,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Rest API settings
+
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "audiodelivery.utils.exceptions.api_exception_handler"
+}
+
 
 # Audio Delivery Settings
 
 AUDIODELIVERY_CHUNK_DIR = BASE_DIR / "chunks"
 
 AUDIODELIVERY_ALLOWED_FORMATS = ("mp3", )
+AUDIODELIVERY_MAX_DURATION = 5*60*1000
+AUDIODELIVERY_MAX_SIZE = 10*1024*1024
+
 AUDIODELIVERY_UPLOAD_VALIDATORS = []
+
 AUDIODELIVERY_MAX_CHUNK_DURATION = 9999
 
 AUDIODELIVERY_CHUNK_MODEL = "audiodelivery.AudioChunk"
