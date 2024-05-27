@@ -78,6 +78,7 @@ AUDIODELIVERY_AUDIO_MODEL = "your_app_label.MyAudio"
 First of all AudioDelivery requires two extra django apps:
 - [django-rest-framework](https://www.django-rest-framework.org/#installation) -> for manage the REST APIs requests
 - [django-crum](https://pypi.org/project/django-crum/) -> a middleware for obtain the current user in the thread
+
 And make sure you've installed pydub library and ffmpeg:
 - [pydub](https://pypi.org/project/pydub/) -> helps mp3 chunks generation
 
